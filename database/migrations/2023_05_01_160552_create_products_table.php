@@ -16,12 +16,12 @@ class CreateProductsTable extends Migration
             //$table->text('image')->nullable;
 
              ### relation_user ###
-             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete;
+             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             //      ### relation_cart ###
             // $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete;
             // $table->timestamps();
                     ### relation_subcategory ###
-            $table->foreignId('subcategory_id')->constrained('sub_categories')->cascadeOnDelete;
+            $table->foreignId('subcategory_id')->constrained('sub_categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +29,9 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+        Schema::dropIfExists('contact');
+        Schema::dropIfExists('groups');
+
 
         //$table->dropColumn('user_id');
     }

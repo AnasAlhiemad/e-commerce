@@ -171,37 +171,75 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function getAllProduct()
     {
-        //
+        $product=Product::all();
+         return response()->json($product);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cart $cart)
+    public function searshProduct($name)
     {
-        //
+        $product=Product::where('product_name',$name)->get();
+        return response()->json($product);
+        //with('subcategory.category','subcategory.products')->
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cart $cart)
+    public function product_Id_searsh($productId)
     {
-        //
+        $product = Product::where('id',$productId)->get();
+        return response()->json($product);
+        //with('product.image')->
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart)
+    public function UpdateProduct(Request $request,$productId)
     {
+        $validator = Validator::make($request->all(), [
+            'product_name' => 'required|string|between:2,100',
+            'price_product'=>'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        $data= Product::find($productId)->update([
+            'product_name' => $request->product_name,
+            'price_product'=>$request->price_product,
+
+        ]);
+        $images=$request->list_images;
+        $input=[];
+        $i1=0;$i2=0;
+        foreach ($images as $image2) {
+            $image1=$image2['image'];
+            $image_name=time().$image1->getClientOriginalName();
+            $image1->move(public_path('upload'),$image_name);
+            $path="public/upload/$image_name";
+            $input[$i1]=$path;
+
+            $data= Product::find($productId)->Image()->update([
+                'image'=>$input[$i1],
+                'Product_id'=>$productId,
+
+            ]);
+            $i1++;
+
+        }
+        return response()->json(['message'=> 'done']);
 
     }
-    public function getAllCatigories()
+    public function deleteProduct($productId)
     {
-        $Category = Category::with(['Category.SubCategory'])->get();
-        return response()->json($Category);
+        $data =Product::find($productId)->Image()->delete();
+        $data =Product::find($productId)->delete();
+        return response()->json(['message' => 'true']);
+
     }
+    public function getImage($productId){
+    $image=Product::find($productId)->Image;
+    return response()->json($image);
+    }
+
 }

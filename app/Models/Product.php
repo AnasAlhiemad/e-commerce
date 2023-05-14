@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Favorite;
-use App\Models\Sub_Category;
+use App\Models\sub_Category;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +38,7 @@ class Product extends Model
         return $this->hasMany(Favorite::class,'product_id');
     }
     public function image(){
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class,'product_id');
     }
 
 

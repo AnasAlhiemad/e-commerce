@@ -18,7 +18,7 @@ class sub_Category extends Model
     //  public $timestamps = true;
 
     public function products() {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class,'subcategory_id');
     }
 
     public function category()

@@ -13,6 +13,6 @@ class Image extends Model
         'image','Product_id'
     ];
     public function product() {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

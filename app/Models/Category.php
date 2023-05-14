@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\sub_Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,6 @@ class Category extends Model
 
     public function subcategory()
     {
-        return $this->hasMany(SubCategory::class, 'subcategory_id');
+        return $this->hasMany(sub_Category::class, 'category_id');
     }
 }
