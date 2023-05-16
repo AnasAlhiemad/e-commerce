@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\sub_Category;
 use Illuminate\Http\Request;
 use Validator;
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     }
     public function AllCat_WithSub_WithProd()
     {
-        $Category = Category::with('subcategory.category','subcategory.products')->get();
+        $Category = Category::with('subcategory.category','subcategory.products.user')->get();
         return response()->json($Category);
     }
     public function  getCategories()
@@ -27,7 +28,7 @@ class CategoryController extends Controller
     }
     public function searsh_Category($name)
     {
-        $Category = Category::with('subcategory.category','subcategory.products')
+        $Category = Category::with('subcategory.category','subcategory.products.user')
         ->where('category_name', $name)->get();
         return response()->json($Category);
 

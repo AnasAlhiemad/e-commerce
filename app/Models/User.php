@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Cart_Order;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,5 +64,9 @@ class User extends Authenticatable implements JWTSubject
     public function favorit()
     {
         return $this->hasMany(Favorite::class,'user_id');
+    }
+    public function cart()
+    {
+        return $this->hasOne(Cart::class,'user_id');
     }
 }

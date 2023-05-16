@@ -7,6 +7,8 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\FavoritController;
+use App\Http\Controllers\CartOrderController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,3 +52,8 @@ use App\Http\Controllers\FavoritController;
     Route::post('/addFavorite/{id}',[FavoritController::class,'addFavorite']);
     Route::post('/delete_favorite/{IdFavorite}',[FavoritController::class,'delete_favorite']);
     Route::get('/get_myFavorite',[FavoritController::class,'get_myFavorite']);
+
+                #####################CART#################
+    Route::post('/CreateCart',[CartController::class,'CreateCart']);
+    Route::get('/getCart',[CartController::class,'getCart']);
+    Route::post('/addOrder/{product_id}',[CartOrderController::class,'addOrder']);
